@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kids Marketplace</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff8f2;
+      color: #2d2a26;
+    }
+    .app {
+      max-width: 420px;
+      margin: 0 auto;
+      min-height: 100vh;
+      padding: 20px 16px 90px;
+      box-sizing: border-box;
+    }
+    .screen { display: none; }
+    .screen.active { display: block; }
+    .hero, .card, .note {
+      background: white;
+      border-radius: 20px;
+      padding: 16px;
+      margin-bottom: 14px;
+      border: 1px solid #f1ddd1;
+    }
+    .hero {
+      background: linear-gradient(135deg, #fff0e7, #fffdfa);
+    }
+    h1 {
+      font-size: 26px;
+      margin: 0 0 10px;
+    }
+    h2 {
+      font-size: 20px;
+      margin: 0 0 10px;
+    }
+    p {
+      margin: 0;
+      color: #7e756c;
+      line-height: 1.45;
+    }
+    .badge {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #ffe3d8;
+      color: #ff7a59;
+      font-size: 12px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .tabbar {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
+      max-width: 420px;
+      margin: 0 auto;
+      background: #fff;
+      border: 1px solid #f1ddd1;
+      border-radius: 22px;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 6px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+    .tab {
+      background: none;
+      border: none;
+      color: #8c847c;
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .tab.active {
+      color: #ff7a59;
+      font-weight: bold;
+    }
+    .icon {
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="screen active" id="home">
+      <div class="hero">
+        <div class="badge">Концепт детского маркетплейса</div>
+        <h1>Всё для детей в одном приложении</h1>
+        <p>Здесь будет удобный маркетплейс с разделами для родителей: главная, каталог, избранное, корзина и профиль.</p>
+      </div>
+
+      <h2>Категории</h2>
+      <div class="grid">
+        <div class="card"><div class="icon">🧸</div><strong>Игрушки</strong><p>Для разных возрастов</p></div>
+        <div class="card"><div class="icon">👕</div><strong>Одежда</strong><p>Повседневная и сезонная</p></div>
+        <div class="card"><div class="icon">📚</div><strong>Книги</strong><p>Сказки и обучение</p></div>
+        <div class="card"><div class="icon">🍼</div><strong>Малышам</strong><p>Уход и прогулки</p></div>
+      </div>
+    </div>
+
+    <div class="screen" id="catalog">
+      <div class="note">
+        <h2>Каталог</h2>
+        <p>Сюда потом добавим фильтры, баннеры и карточки товаров.</p>
+      </div>
+    </div>
+
+    <div class="screen" id="favorites">
+      <div class="note">
+        <h2>Избранное</h2>
+        <p>Здесь будут сохранённые товары.</p>
+      </div>
+    </div>
+
+    <div class="screen" id="cart">
+      <div class="note">
+        <h2>Корзина</h2>
+        <p>Сюда потом добавим товары, сумму и кнопку оформления.</p>
+      </div>
+    </div>
+
+    <div class="screen" id="profile">
+      <div class="note">
+        <h2>Профиль</h2>
+        <p>Здесь будут заказы, адреса и бонусы.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabbar">
+    <button class="tab active" onclick="showScreen('home', this)"><span class="icon">🏠</span>Главная</button>
+    <button class="tab" onclick="showScreen('catalog', this)"><span class="icon">🧸</span>Каталог</button>
+    <button class="tab" onclick="showScreen('favorites', this)"><span class="icon">❤️</span>Избранное</button>
+    <button class="tab" onclick="showScreen('cart', this)"><span class="icon">🛒</span>Корзина</button>
+    <button class="tab" onclick="showScreen('profile', this)"><span class="icon">👤</span>Профиль</button>
+  </div>
+
+  <script>
+    function showScreen(id, el) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      el.classList.add('active');
+    }
+  </script>
+</body>
+</html>
