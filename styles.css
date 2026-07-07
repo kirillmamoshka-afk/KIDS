@@ -110,6 +110,7 @@ body {
   padding: 22px;
 }
 
+/* Hero-карусель */
 .hero-carousel {
   position: relative;
   margin-bottom: 22px;
@@ -239,6 +240,7 @@ body {
   background: var(--primary);
 }
 
+/* Заголовки секций */
 .section-title {
   display: flex;
   align-items: baseline;
@@ -258,6 +260,7 @@ body {
   color: var(--muted);
 }
 
+/* Поиск */
 .search {
   margin: 0 0 14px;
   padding: 12px 14px;
@@ -268,9 +271,11 @@ body {
   font-size: 13px;
 }
 
+/* Экраны */
 .screen-view { display: none; }
 .screen-view.active { display: block; }
 
+/* Карточки */
 .featured {
   background: linear-gradient(180deg, #fff 0%, #fffaf4 100%);
 }
@@ -392,6 +397,7 @@ body {
   line-height: 1.5;
 }
 
+/* Задания и запросы */
 .task-card {
   padding: 16px;
 }
@@ -487,6 +493,7 @@ body {
   overflow: hidden;
   background: var(--surface-soft);
   display: flex;
+  transition: transform 0.3s ease;
 }
 
 .shop-banner-slide {
@@ -496,7 +503,7 @@ body {
 
 .shop-banner-slide img {
   width: 100%;
-  height: auto;          /* картинка сама задаёт высоту */
+  height: auto;
   display: block;
 }
 
@@ -522,6 +529,7 @@ body {
   background: var(--primary);
 }
 
+/* Мини-баннер (если понадобится) */
 .shop-banner.hero-mini {
   padding: 18px;
   display: flex;
@@ -558,6 +566,7 @@ body {
   background: linear-gradient(135deg, #f0d8c7, #d8ecf7);
 }
 
+/* Бренды, категории, товары */
 .brands-row,
 .categories-row {
   display: flex;
@@ -629,6 +638,7 @@ body {
   font-size: 13px;
 }
 
+/* Корзина */
 .cart-card {
   padding: 16px;
 }
@@ -669,6 +679,7 @@ body {
   font-weight: 600;
 }
 
+/* Отчёты */
 .cards,
 .reports-grid {
   display: grid;
@@ -731,6 +742,7 @@ body {
   background: conic-gradient(var(--primary) 0deg 260deg, #eee4d9 260deg 360deg);
 }
 
+/* Профиль */
 .profile-card {
   padding: 16px;
   margin-bottom: 12px;
@@ -764,6 +776,7 @@ body {
   background: var(--surface);
 }
 
+/* Нижняя навигация */
 nav.bottom {
   height: var(--tab-h);
   background: rgba(255,255,255,.92);
@@ -806,9 +819,11 @@ nav.bottom {
   font-weight: 600;
 }
 
+/* ещё раз на всякий случай, чтобы не было конфликта */
 .screen-view { display: none; }
 .screen-view.active { display: block; }
 
+/* Адаптив */
 @media (max-width: 980px) {
   .hero-slide.active {
     grid-template-columns: 1fr;
@@ -827,10 +842,6 @@ nav.bottom {
   .cards,
   .reports-grid {
     grid-template-columns: 1fr;
-  }
-
-  .shop-banners-track {
-    height: 130px;
   }
 }
 
@@ -858,9 +869,5 @@ nav.bottom {
 
   .hero-slide .hero-visual {
     min-height: 170px;
-  }
-
-  .shop-banners-track {
-    height: 120px;
   }
 }
