@@ -475,10 +475,7 @@ body {
   color: #76695d;
 }
 
-/* Старый shop-banner.hero-mini не используется как баннер, но оставлен для совместимости,
-   если решишь повторно использовать где-то ещё */
-
-/* Новый блок баннеров магазина: слайды под будущие картинки */
+/* Блок баннеров магазина под локальные картинки */
 .shop-banners {
   margin-bottom: 18px;
 }
@@ -496,27 +493,15 @@ body {
 .shop-banner-slide {
   flex: 0 0 100%;
   height: 100%;
-  /* временные заглушки градиентом, потом можно заменить на background-image */
-  background-size: cover;
-  background-position: center;
-  transition: transform 0.4s ease;
+  display: flex;
 }
 
-/* три разных заглушки, чтобы визуально отличались */
-.shop-banner-slide:nth-child(1) {
-  background-image: linear-gradient(135deg, #f0d8c7, #d8ecf7);
+.shop-banner-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
-
-.shop-banner-slide:nth-child(2) {
-  background-image: linear-gradient(135deg, #ece4f9, #f9e7dd);
-}
-
-.shop-banner-slide:nth-child(3) {
-  background-image: linear-gradient(135deg, #f4dfbf, #f7e9d9);
-}
-
-/* при JS-переключении будем смещать всю track, поэтому active здесь скорее для JS/ARIA;
-   CSS-позиционирование ленты сделаем в JS */
 
 .shop-banners-dots {
   display: flex;
