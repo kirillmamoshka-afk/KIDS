@@ -3,157 +3,555 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kids Marketplace</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #fff8f2;
-      color: #2d2a26;
-    }
-    .app {
-      max-width: 420px;
-      margin: 0 auto;
-      min-height: 100vh;
-      padding: 20px 16px 90px;
-      box-sizing: border-box;
-    }
-    .screen { display: none; }
-    .screen.active { display: block; }
-    .hero, .card, .note {
-      background: white;
-      border-radius: 20px;
-      padding: 16px;
-      margin-bottom: 14px;
-      border: 1px solid #f1ddd1;
-    }
-    .hero {
-      background: linear-gradient(135deg, #fff0e7, #fffdfa);
-    }
-    h1 {
-      font-size: 26px;
-      margin: 0 0 10px;
-    }
-    h2 {
-      font-size: 20px;
-      margin: 0 0 10px;
-    }
-    p {
-      margin: 0;
-      color: #7e756c;
-      line-height: 1.45;
-    }
-    .badge {
-      display: inline-block;
-      margin-bottom: 10px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: #ffe3d8;
-      color: #ff7a59;
-      font-size: 12px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-    .tabbar {
-      position: fixed;
-      bottom: 10px;
-      left: 10px;
-      right: 10px;
-      max-width: 420px;
-      margin: 0 auto;
-      background: #fff;
-      border: 1px solid #f1ddd1;
-      border-radius: 22px;
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 6px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-    }
-    .tab {
-      background: none;
-      border: none;
-      color: #8c847c;
-      font-size: 11px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-    .tab.active {
-      color: #ff7a59;
-      font-weight: bold;
-    }
-    .icon {
-      font-size: 20px;
-    }
-  </style>
+  <title>WB Kids App</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="app">
-    <div class="screen active" id="home">
-      <div class="hero">
-        <div class="badge">Концепт детского маркетплейса</div>
-        <h1>Всё для детей в одном приложении</h1>
-        <p>Здесь будет удобный маркетплейс с разделами для родителей: главная, каталог, избранное, корзина и профиль.</p>
+  <div class="page">
+    <div class="app-shell" aria-label="WB Kids app">
+      <header class="top">
+        <div class="brand">
+          <strong>WB Kids</strong>
+          <span>для родителей и детей</span>
+        </div>
+        <div class="top-icons">
+          <!-- Поиск -->
+          <button class="icon-btn" type="button" aria-label="Поиск">
+            <svg class="icon icon-search" viewBox="0 0 513.749 513.749">
+              <g>
+                <path fill="currentColor" d="M504.352,459.061l-99.435-99.477c74.402-99.427,54.115-240.344-45.312-314.746S119.261-9.277,44.859,90.15   S-9.256,330.494,90.171,404.896c79.868,59.766,189.565,59.766,269.434,0l99.477,99.477c12.501,12.501,32.769,12.501,45.269,0   c12.501-12.501,12.501-32.769,0-45.269L504.352,459.061z M225.717,385.696c-88.366,0-160-71.634-160-160s71.634-160,160-160   s160,71.634,160,160C385.623,314.022,314.044,385.602,225.717,385.696z"/>
+              </g>
+            </svg>
+          </button>
+
+          <!-- Корзина в топ-баре -->
+          <button class="icon-btn" type="button" aria-label="Корзина">
+            <svg class="icon icon-cart" viewBox="0 0 24 24">
+              <circle cx="7" cy="22" r="2" fill="currentColor"/>
+              <circle cx="17" cy="22" r="2" fill="currentColor"/>
+              <path fill="currentColor" d="M22.984,6.018A3.675,3.675,0,0,0,20.364,5H5.654L5.391,2.938A3.328,3.328,0,0,0,2.087,0H1.5A1.5,1.5,0,0,0,0,1.5H0A1.5,1.5,0,0,0,1.5,3h.587a.331.331,0,0,1,.326.3l1.5,11.759A3.327,3.327,0,0,0,7.217,18H17.339a5.5,5.5,0,0,0,5.3-4.042l1.246-4.531A3.489,3.489,0,0,0,22.984,6.018ZM19.75,13.163A2.508,2.508,0,0,1,17.339,15H7.217a.329.329,0,0,1-.325-.3L6.037,8H20.514A.5.5,0,0,1,21,8.632Z"/>
+            </svg>
+          </button>
+
+          <!-- Профиль -->
+          <button class="icon-btn" type="button" aria-label="Профиль">
+            <svg class="icon icon-user" viewBox="0 0 512 512">
+              <g>
+                <path fill="currentColor" d="M244.317,299.051c-90.917,8.218-160.183,85.041-158.976,176.32V480c0,17.673,14.327,32,32,32l0,0c17.673,0,32-14.327,32-32   v-5.909c-0.962-56.045,40.398-103.838,96-110.933c58.693-5.82,110.992,37.042,116.812,95.735c0.344,3.47,0.518,6.954,0.521,10.441   V480c0,17.673,14.327,32,32,32l0,0c17.673,0,32-14.327,32-32v-10.667c-0.104-94.363-76.685-170.774-171.047-170.67   C251.854,298.668,248.082,298.797,244.317,299.051z"/>
+                <path fill="currentColor" d="M256.008,256c70.692,0,128-57.308,128-128S326.7,0,256.008,0s-128,57.308-128,128   C128.078,198.663,185.345,255.929,256.008,256z M256.008,64c35.346,0,64,28.654,64,64s-28.654,64-64,64s-64-28.654-64-64   S220.662,64,256.008,64z"/>
+              </g>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="hero-carousel" aria-label="Промо баннеры">
+          <div class="carousel-track">
+            <section class="hero-slide active">
+              <div class="hero-copy hero">
+                <div class="eyebrow">Style Destination</div>
+                <h1>WB Kids</h1>
+                <p>Умный семейный интерфейс для покупок, привычек, заданий и родительских решений.</p>
+                <button class="hero-btn">Shop now</button>
+              </div>
+              <div class="hero-visual">
+                <div class="hero-card hero-card-lg"></div>
+                <div class="hero-card hero-card-sm"></div>
+              </div>
+            </section>
+
+            <section class="hero-slide">
+              <div class="hero-copy hero">
+                <div class="eyebrow">School season</div>
+                <h1>Готовьтесь к школе</h1>
+                <p>Подборка школьных товаров, творчества и полезных вещей для спокойного старта.</p>
+                <button class="hero-btn">Посмотреть</button>
+              </div>
+              <div class="hero-visual">
+                <div class="hero-card hero-card-lg hero-card-2"></div>
+                <div class="hero-card hero-card-sm hero-card-2b"></div>
+              </div>
+            </section>
+
+            <section class="hero-slide">
+              <div class="hero-copy hero">
+                <div class="eyebrow">Family routine</div>
+                <h1>Привычки и задания</h1>
+                <p>Следите за рутиной ребёнка, задачами и прогрессом в одном месте.</p>
+                <button class="hero-btn">Открыть</button>
+              </div>
+              <div class="hero-visual">
+                <div class="hero-card hero-card-lg hero-card-3"></div>
+                <div class="hero-card hero-card-sm hero-card-3b"></div>
+              </div>
+            </section>
+          </div>
+
+          <div class="carousel-controls">
+            <button class="carousel-arrow prev" type="button" aria-label="Предыдущий баннер">‹</button>
+            <div class="carousel-dots" aria-label="Навигация по баннерам">
+              <button class="dot active" type="button" data-slide="0" aria-label="Баннер 1"></button>
+              <button class="dot" type="button" data-slide="1" aria-label="Баннер 2"></button>
+              <button class="dot" type="button" data-slide="2" aria-label="Баннер 3"></button>
+            </div>
+            <button class="carousel-arrow next" type="button" aria-label="Следующий баннер">›</button>
+          </div>
+        </div>
+
+        <!-- ЖУРНАЛ -->
+        <section class="screen-view active" data-screen="journal">
+          <div class="section-title">
+            <h2>Журнал</h2>
+            <span>материалы для родителя</span>
+          </div>
+
+          <div class="search">Поиск по статьям</div>
+
+          <div class="journal-card featured">
+            <div class="journal-head">
+              <div>
+                <div class="journal-pill">Онлайн‑журнал</div>
+                <h2>Полезные статьи для родителей</h2>
+              </div>
+              <span class="tag">новые материалы</span>
+            </div>
+            <p>Подборка материалов о воспитании, развитии, привычках, школе, эмоциях и семейных сценариях.</p>
+            <div class="meta-row">
+              <span class="meta">Воспитание</span>
+              <span class="meta">Психология</span>
+              <span class="meta">Школа</span>
+            </div>
+          </div>
+
+          <div class="section-title">
+            <h2>Рекомендованные статьи</h2>
+          </div>
+
+          <div class="list article-grid">
+            <div class="list-card article-card">
+              <div class="article-thumb"></div>
+              <strong>Как мягко выстраивать границы без конфликтов</strong>
+              <p>Практические советы для ежедневного общения с ребёнком.</p>
+              <span class="tag">8 минут чтения</span>
+            </div>
+            <div class="list-card article-card">
+              <div class="article-thumb alt"></div>
+              <strong>Как поддержать ребёнка перед школой</strong>
+              <p>Что важно обсудить дома и как снизить тревожность.</p>
+              <span class="tag">6 минут чтения</span>
+            </div>
+            <div class="list-card article-card">
+              <div class="article-thumb soft"></div>
+              <strong>Полезные привычки для спокойного вечера</strong>
+              <p>Простой семейный ритуал, который помогает собраться ко сну.</p>
+              <span class="tag">5 минут чтения</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ЗАДАНИЯ -->
+        <section class="screen-view" data-screen="tasks">
+          <div class="section-title">
+            <h2>Задания</h2>
+            <span>родитель назначает ребёнку</span>
+          </div>
+
+          <div class="search">Поиск по заданиям</div>
+
+          <div class="meta-row" style="margin:0 0 10px;">
+            <span class="meta active-chip">Мои задания</span>
+            <span class="meta">Шаблоны</span>
+          </div>
+          <div class="meta-row" style="margin:0 0 14px;">
+            <span class="meta">Статус: все</span>
+            <span class="meta">Категория: обучение</span>
+            <span class="meta">Ребёнок: Миша</span>
+          </div>
+
+          <div class="list">
+            <div class="task-card">
+              <div class="task-top">
+                <strong>Прочитать 10 страниц книги</strong>
+                <span class="task-badge">Активно</span>
+              </div>
+              <p>Родитель назначил ежедневное чтение перед сном.</p>
+              <div class="bar"><span style="width:68%;"></span></div>
+            </div>
+            <div class="task-card">
+              <div class="task-top">
+                <strong>Собрать рюкзак на завтра</strong>
+                <span class="task-badge">Сегодня</span>
+              </div>
+              <p>Проверить тетради, форму и бутылку для воды.</p>
+              <div class="bar"><span style="width:44%;"></span></div>
+            </div>
+            <div class="task-card">
+              <div class="task-top">
+                <strong>Убрать игрушки после игры</strong>
+                <span class="task-badge">Шаблон</span>
+              </div>
+              <p>Повторяющееся домашнее задание из сохранённых шаблонов.</p>
+              <div class="bar"><span style="width:78%;"></span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ЗАПРОСЫ -->
+        <section class="screen-view" data-screen="requests">
+          <div class="section-title">
+            <h2>Запросы на покупку</h2>
+            <span>от ребёнка</span>
+          </div>
+
+          <div class="search">Поиск по запросам</div>
+
+          <div class="meta-row" style="margin:0 0 14px;">
+            <span class="meta active-chip">Все запросы</span>
+            <span class="meta">Только новые</span>
+            <span class="meta">Только решённые</span>
+          </div>
+
+          <div class="request">
+            <div class="request-card">
+              <div class="row">
+                <div>
+                  <strong>Игрушка: Набор Лего «Космос»</strong>
+                  <p style="margin-top:6px;">Ребёнок: Миша • Категория: игрушки</p>
+                </div>
+                <span class="status status--new">Новый запрос</span>
+              </div>
+              <p style="margin-top:8px;">Миша хочет добавить набор Лего «Космос» в заказ.</p>
+              <div class="meta-row" style="margin-top:10px;">
+                <span class="meta">Цена: 2 490 ₽</span>
+                <span class="meta">Запрошено: сегодня, 18:24</span>
+              </div>
+              <div style="display:flex; gap:8px; margin-top:14px;">
+                <button class="btn-inline primary">Одобрить</button>
+                <button class="btn-inline muted">Отклонить</button>
+              </div>
+            </div>
+
+            <div class="request-card">
+              <div class="row">
+                <div>
+                  <strong>Одежда: Свитшот с динозавром</strong>
+                  <p style="margin-top:6px;">Ребёнок: Миша • Категория: одежда</p>
+                </div>
+                <span class="status status--approved">Одобрено</span>
+              </div>
+              <p style="margin-top:8px;">Товар добавлен в корзину. Можно оформить заказ в разделе «Корзина».</p>
+              <div class="meta-row" style="margin-top:10px;">
+                <span class="meta">Цена: 1 390 ₽</span>
+                <span class="meta">Одобрено: вчера</span>
+              </div>
+            </div>
+
+            <div class="request-card">
+              <div class="row">
+                <div>
+                  <strong>Книга: «Приключения в космосе»</strong>
+                  <p style="margin-top:6px;">Ребёнок: Миша • Категория: книги</p>
+                </div>
+                <span class="status status--declined">Отклонено</span>
+              </div>
+              <p style="margin-top:8px;">Запрос отклонён. Можно предложить альтернативу или обсудить покупку позже.</p>
+              <div class="meta-row" style="margin-top:10px;">
+                <span class="meta">Цена: 590 ₽</span>
+                <span class="meta">Отклонено: 2 дня назад</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- МАГАЗИН -->
+        <section class="screen-view" data-screen="shop">
+          <div class="section-title">
+            <h2>Магазин</h2>
+            <span>подборка товаров</span>
+          </div>
+
+          <div class="search">Поиск по товарам</div>
+
+          <!-- Блок баннеров с картинками -->
+          <div class="shop-banners" aria-label="Баннеры магазина">
+            <div class="shop-banners-track">
+              <div class="shop-banner-slide active">
+                <img src="https://allwebs.ru/image/chicco-desktop-banner.YRDPZR"
+                     alt="Баннер Chicco">
+              </div>
+              <div class="shop-banner-slide">
+                <img src="https://allwebs.ru/image/images.YRDeps"
+                     alt="Баннер общая подборка">
+              </div>
+              <div class="shop-banner-slide">
+                <img src="https://allwebs.ru/image/huggies.YRDEmY"
+                     alt="Баннер Huggies">
+              </div>
+              <div class="shop-banner-slide">
+                <img src="https://allwebs.ru/image/LEGO.YRDjBx"
+                     alt="Баннер LEGO">
+              </div>
+            </div>
+            <div class="shop-banners-dots" aria-label="Навигация по баннерам магазина">
+              <button class="dot active" type="button" data-shop-banner="0" aria-label="Баннер магазина 1"></button>
+              <button class="dot" type="button" data-shop-banner="1" aria-label="Баннер магазина 2"></button>
+              <button class="dot" type="button" data-shop-banner="2" aria-label="Баннер магазина 3"></button>
+              <button class="dot" type="button" data-shop-banner="3" aria-label="Баннер магазина 4"></button>
+            </div>
+          </div>
+
+          <div class="section-title" style="margin-top:18px;">
+            <h2 style="font-size:18px;">Бренды</h2>
+            <span>5–6 вариантов</span>
+          </div>
+          <div class="brands-row">
+            <button class="brand-pill">Lego Kids</button>
+            <button class="brand-pill">SchoolPro</button>
+            <button class="brand-pill">FunBooks</button>
+            <button class="brand-pill">KidsWear</button>
+            <button class="brand-pill">ArtBox</button>
+          </div>
+
+          <div class="section-title" style="margin-bottom:10px;">
+            <h2 style="font-size:18px;">Подборка недели</h2>
+            <span>для Миши</span>
+          </div>
+          <div class="featured-card shop-feature">
+            <div class="thumb big"></div>
+            <div style="flex:1;">
+              <strong style="display:block; font-size:15px; margin-bottom:4px;">
+                Набор «Школа без стресса»
+              </strong>
+              <p style="margin:0 0 6px; font-size:13px; color:var(--muted);">
+                Всё для спокойного старта учебного года.
+              </p>
+              <span class="price" style="font-size:14px;">2 490 ₽</span>
+            </div>
+          </div>
+
+          <div class="section-title" style="margin-bottom:10px;">
+            <h2 style="font-size:18px;">Категории</h2>
+            <span>быстрый выбор</span>
+          </div>
+          <div class="categories-row">
+            <button class="category-pill category-pill--primary">🎒 Школа</button>
+            <button class="category-pill">📚 Книги</button>
+            <button class="category-pill">🎨 Творчество</button>
+            <button class="category-pill">👕 Одежда</button>
+            <button class="category-pill">🧸 Игрушки</button>
+          </div>
+
+          <div class="section-title" style="margin-bottom:10px;">
+            <h2 style="font-size:18px;">Рекомендации</h2>
+            <span>подобрано для вас</span>
+          </div>
+
+          <div class="shop-grid">
+            <div class="shop-card">
+              <div class="thumb"></div>
+              <strong>Школьный набор</strong>
+              <p>1 990 ₽</p>
+            </div>
+            <div class="shop-card">
+              <div class="thumb alt"></div>
+              <strong>Творческий комплект</strong>
+              <p>1 250 ₽</p>
+            </div>
+            <div class="shop-card">
+              <div class="thumb soft"></div>
+              <strong>Книга недели</strong>
+              <p>690 ₽</p>
+            </div>
+            <div class="shop-card">
+              <div class="thumb warm"></div>
+              <strong>Термобутылка</strong>
+              <p>850 ₽</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- КОРЗИНА -->
+        <section class="screen-view" data-screen="cart">
+          <div class="section-title">
+            <h2>Корзина</h2>
+            <span>готово к оплате</span>
+          </div>
+
+          <div class="search">Поиск по корзине</div>
+
+          <div class="cart-card">
+            <div class="cart-row">
+              <div>
+                <strong>Школьный набор</strong>
+                <div class="qty">1 шт.</div>
+              </div>
+              <div class="price">1 990 ₽</div>
+            </div>
+            <div class="cart-row">
+              <div>
+                <strong>Термобутылка</strong>
+                <div class="qty">2 шт.</div>
+              </div>
+              <div class="price">1 700 ₽</div>
+            </div>
+            <div class="cart-row total">
+              <span>Итого</span>
+              <span>3 690 ₽</span>
+            </div>
+            <button class="btn">Оформить заказ</button>
+          </div>
+        </section>
+
+        <!-- ОТЧЁТЫ -->
+        <section class="screen-view" data-screen="reports">
+          <div class="section-title">
+            <h2>Отчёты</h2>
+            <span>дашборд по детям</span>
+          </div>
+
+          <div class="search">Поиск по детям и отчётам</div>
+
+          <div class="cards">
+            <div class="stat-card">
+              <div class="icon-emoji">👦</div>
+              <strong>Миша</strong>
+              <p>8 лет • 3 привычки отслеживаются.</p>
+            </div>
+            <div class="stat-card">
+              <div class="icon-emoji">👧</div>
+              <strong>Катя</strong>
+              <p>6 лет • 2 привычки отслеживаются.</p>
+            </div>
+          </div>
+
+          <div class="section-title" style="margin-bottom:6px;">
+            <h2 style="font-size:18px;">Сегодня</h2>
+            <span>привычки и задания</span>
+          </div>
+
+          <div class="reports-grid">
+            <div class="report-card">
+              <div class="donut donut-water"><span>80%</span></div>
+              <strong style="font-size:14px;">Вода за день</strong>
+              <p style="margin-top:4px; font-size:12px;">Миша: 4 из 5 стаканов воды.</p>
+            </div>
+            <div class="report-card">
+              <div class="donut donut-tasks"><span>72%</span></div>
+              <strong style="font-size:14px;">Задания</strong>
+              <p style="margin-top:4px; font-size:12px;">Миша: 5 из 7 задач выполнено.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- КАБИНЕТ -->
+        <section class="screen-view" data-screen="profile">
+          <div class="section-title">
+            <h2>Личный кабинет</h2>
+            <span>профиль родителя</span>
+          </div>
+
+          <div class="profile-card">
+            <div class="avatar">👨</div>
+            <strong style="font-size:16px;">Кирилл, родитель</strong>
+            <p style="margin-top:6px; font-size:13px;">Телефон: +7 (915) 692-**-70</p>
+          </div>
+
+          <div class="profile-list">
+            <div class="profile-item">
+              <span>Мои дети</span>
+              <span style="font-size:13px; color:var(--muted);">Миша, Катя</span>
+            </div>
+            <div class="profile-item">
+              <span>Помощь</span>
+              <span style="font-size:13px; color:var(--muted);">FAQ и поддержка</span>
+            </div>
+          </div>
+
+          <button class="btn btn-secondary" style="margin-top:18px;">Выйти из профиля</button>
+        </section>
       </div>
 
-      <h2>Категории</h2>
-      <div class="grid">
-        <div class="card"><div class="icon">🧸</div><strong>Игрушки</strong><p>Для разных возрастов</p></div>
-        <div class="card"><div class="icon">👕</div><strong>Одежда</strong><p>Повседневная и сезонная</p></div>
-        <div class="card"><div class="icon">📚</div><strong>Книги</strong><p>Сказки и обучение</p></div>
-        <div class="card"><div class="icon">🍼</div><strong>Малышам</strong><p>Уход и прогулки</p></div>
-      </div>
-    </div>
+      <nav class="bottom" aria-label="Нижняя навигация">
+        <!-- Журнал -->
+        <button class="tab active" data-tab="journal">
+          <span class="i">
+            <svg class="icon icon-journal" viewBox="0 0 24 24">
+              <path fill="currentColor" d="m20.5,4.998h-1.5v-1.501C19,1.566,17.43-.004,15.5-.004l-12,.004c-.933,0-1.812.365-2.474,1.028S0,2.569,0,3.502l.005,13.622c0,1.032.838,1.872,1.868,1.872.184,0,.366-.027.542-.081l2.585-1.079v4.162h12l4.443,1.864.16.057c.171.05.347.075.523.075,1.03,0,1.868-.839,1.868-1.871l.005-13.625c0-1.93-1.57-3.5-3.5-3.5ZM3,3.501c0-.271.229-.501.5-.501l12-.004c.276,0,.5.224.5.5v10.504H6.396l-3.392,1.422-.005-11.921Zm17.995,16.919l-3.392-1.423h-9.604v-1.998h11V7.998h1.5c.276,0,.5.224.5.499l-.005,11.924Zm-11.995-8.242l-4-1.147v-4.491c0-1.087.762-1.768,1.808-1.469l1.005.251c.702.201,1.187.843,1.187,1.573v5.283Zm5-1.147l-4,1.147v-5.283c0-.731.485-1.373,1.187-1.573l1.005-.251c1.045-.299,1.808.382,1.808,1.469v4.491Z"/>
+            </svg>
+          </span>
+          <span>Журнал</span>
+        </button>
 
-    <div class="screen" id="catalog">
-      <div class="note">
-        <h2>Каталог</h2>
-        <p>Сюда потом добавим фильтры, баннеры и карточки товаров.</p>
-      </div>
-    </div>
+        <!-- Задания -->
+        <button class="tab" data-tab="tasks">
+          <span class="i">
+            <svg class="icon icon-tasks" viewBox="0 0 24 24">
+              <path fill="currentColor" d="m20 13.5v5c0 3.032-2.468 5.5-5.5 5.5h-9c-3.032 0-5.5-2.468-5.5-5.5v-13c0-3.033 2.468-5.5 5.5-5.5h8c.828 0 1.5.671 1.5 1.5s-.672 1.5-1.5 1.5h-8c-1.379 0-2.5 1.122-2.5 2.5v13c0 1.379 1.121 2.5 2.5 2.5h9c1.379 0 2.5-1.121 2.5-2.5v-5c0-.829.672-1.5 1.5-1.5s1.5.671 1.5 1.5zm3.512-12.651c-.875-1.07-2.456-1.129-3.409-.176l-5.808 5.808c-.813.813-1.269 1.915-1.269 3.064v.955c0 .276.224.5.5.5h.955c1.149 0 2.252-.457 3.064-1.269l5.715-5.715c.85-.85 1.013-2.236.252-3.167zm-15.008 13.61-1.263 1.229-.222-.205c-.608-.563-1.558-.527-2.12.081-.563.607-.527 1.557.081 2.12l.737.681c.409.41.954.636 1.533.636s1.124-.226 1.509-.612l1.821-1.763c.598-.572.619-1.522.046-2.12-.574-.599-1.522-.619-2.121-.046zm2.121-5.954c-.574-.599-1.522-.619-2.121-.046l-1.263 1.229-.222-.205c-.608-.563-1.558-.527-2.12.081-.563.607-.527 1.557.081 2.12l.737.681c.409.41.954.636 1.533.636s1.124-.226 1.509-.612l1.821-1.763c.598-.572.619-1.522.046-2.12zm2.875 10.496c.828 0 1.5-.671 1.5-1.5s-.672-1.5-1.5-1.5h-.083c-.829 0-1.458.671-1.458 1.5s.713 1.5 1.542 1.5z"/>
+            </svg>
+          </span>
+          <span>Задания</span>
+        </button>
 
-    <div class="screen" id="favorites">
-      <div class="note">
-        <h2>Избранное</h2>
-        <p>Здесь будут сохранённые товары.</p>
-      </div>
-    </div>
+        <!-- Запросы -->
+        <button class="tab" data-tab="requests">
+          <span class="i">
+            <svg class="icon icon-requests" viewBox="0 0 24 24">
+              <path fill="currentColor" d="m13.5,8h-2c-.829,0-1.5-.672-1.5-1.5s.671-1.5,1.5-1.5h2c.829,0,1.5.672,1.5,1.5s-.671,1.5-1.5,1.5Zm-2,2c-.829,0-1.5.672-1.5,1.5s.671,1.5,1.5,1.5h1c.829,0,1.5-.672,1.5-1.5s-.671-1.5-1.5-1.5h-1Zm-5,5c-.828,0-1.5.672-1.5,1.5s.672,1.5,1.5,1.5,1.5-.672,1.5-1.5-.672-1.5-1.5-1.5Zm0-10c-.828,0-1.5.672-1.5,1.5s.672,1.5,1.5,1.5,1.5-.672,1.5-1.5-.672-1.5-1.5-1.5Zm0,5c-.828,0-1.5.672-1.5,1.5s.672,1.5,1.5,1.5,1.5-.672,1.5-1.5-.672-1.5-1.5-1.5Zm4,11h-5c-1.378,0-2.5-1.121-2.5-2.5V5.5c0-1.379,1.122-2.5,2.5-2.5h9c1.378,0,2.5,1.121,2.5,2.5v5c0,.828.671,1.5,1.5,1.5s1.5-.672,1.5-1.5v-5c0-3.032-2.467-5.5-5.5-5.5H5.5C2.467,0,0,2.468,0,5.5v13c0,3.032,2.467,5.5,5.5,5.5h5c.829,0,1.5-.672,1.5-1.5s-.671-1.5-1.5-1.5Zm10.5-7c-1.657,0-3,1.343-3,3,0-1.657-1.343-3-3-3s-3,1.343-3,3c0,2.631,3.391,5.403,5.074,6.688.546.417,1.306.417,1.851,0,1.684-1.284,5.074-4.057,5.074-6.688,0-1.657-1.343-3-3-3Z"/>
+            </svg>
+          </span>
+          <span>Запросы</span>
+        </button>
 
-    <div class="screen" id="cart">
-      <div class="note">
-        <h2>Корзина</h2>
-        <p>Сюда потом добавим товары, сумму и кнопку оформления.</p>
-      </div>
-    </div>
+        <!-- Магазин -->
+        <button class="tab" data-tab="shop">
+          <span class="i">
+            <svg class="icon icon-shop" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M20.5,6.2H18V6A6,6,0,0,0,6,6v.2H3.5A3.543,3.543,0,0,0,0,9.7v8.8A5.549,5.549,0,0,0,5.5,24h13A5.549,5.549,0,0,0,24,18.5V9.7A3.543,3.543,0,0,0,20.5,6.2ZM9,6a3,3,0,0,1,6,0v.2H9ZM21,18.5A2.476,2.476,0,0,1,18.5,21H5.5A2.476,2.476,0,0,1,3,18.5V9.7a.472.472,0,0,1,.5-.5H6v1.3a1.5,1.5,0,0,0,3,0V9.2h6v1.3a1.5,1.5,0,0,0,3,0V9.2h2.5a.472.472,0,0,1,.5.5Z"/>
+            </svg>
+          </span>
+          <span>Магазин</span>
+        </button>
 
-    <div class="screen" id="profile">
-      <div class="note">
-        <h2>Профиль</h2>
-        <p>Здесь будут заказы, адреса и бонусы.</p>
-      </div>
+        <!-- Корзина -->
+        <button class="tab" data-tab="cart">
+          <span class="i">
+            <svg class="icon icon-cart" viewBox="0 0 24 24">
+              <circle cx="7" cy="22" r="2" fill="currentColor"/>
+              <circle cx="17" cy="22" r="2" fill="currentColor"/>
+              <path fill="currentColor" d="M22.984,6.018A3.675,3.675,0,0,0,20.364,5H5.654L5.391,2.938A3.328,3.328,0,0,0,2.087,0H1.5A1.5,1.5,0,0,0,0,1.5H0A1.5,1.5,0,0,0,1.5,3h.587a.331.331,0,0,1,.326.3l1.5,11.759A3.327,3.327,0,0,0,7.217,18H17.339a5.5,5.5,0,0,0,5.3-4.042l1.246-4.531A3.489,3.489,0,0,0,22.984,6.018ZM19.75,13.163A2.508,2.508,0,0,1,17.339,15H7.217a.329.329,0,0,1-.325-.3L6.037,8H20.514A.5.5,0,0,1,21,8.632Z"/>
+            </svg>
+          </span>
+          <span>Корзина</span>
+        </button>
+
+        <!-- Отчёты -->
+        <button class="tab" data-tab="reports">
+          <span class="i">
+            <svg class="icon icon-reports" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M18.556,11.385H14.011a1.388,1.388,0,0,1-1.393-1.389V5.433a3.432,3.432,0,0,0-1.331-2.722A3.307,3.307,0,0,0,8.436,2.1,11.112,11.112,0,1,0,21.9,15.579a3.309,3.309,0,0,0-.61-2.858A3.49,3.49,0,0,0,18.556,11.385Zm.433,3.459A8.115,8.115,0,1,1,9.167,5.009.3.3,0,0,1,9.239,5a.331.331,0,0,1,.2.077.461.461,0,0,1,.176.356V9.994a4.389,4.389,0,0,0,4.393,4.39h4.545a.467.467,0,0,1,.365.18A.311.311,0,0,1,18.989,14.844Z"/>
+              <path fill="currentColor" d="M23.651,7.446A10.073,10.073,0,0,0,16.582.372,2.014,2.014,0,0,0,14.019,2.3V7a3,3,0,0,0,3,3h4.719A2.008,2.008,0,0,0,23.651,7.446Z"/>
+            </svg>
+          </span>
+          <span>Отчёты</span>
+        </button>
+
+        <!-- Кабинет -->
+        <button class="tab" data-tab="profile">
+          <span class="i">
+            <svg class="icon icon-user" viewBox="0 0 512 512">
+              <g>
+                <path fill="currentColor" d="M244.317,299.051c-90.917,8.218-160.183,85.041-158.976,176.32V480c0,17.673,14.327,32,32,32l0,0c17.673,0,32-14.327,32-32   v-5.909c-0.962-56.045,40.398-103.838,96-110.933c58.693-5.82,110.992,37.042,116.812,95.735c0.344,3.47,0.518,6.954,0.521,10.441   V480c0,17.673,14.327,32,32,32l0,0c17.673,0,32-14.327,32-32v-10.667c-0.104-94.363-76.685-170.774-171.047-170.67   C251.854,298.668,248.082,298.797,244.317,299.051z"/>
+                <path fill="currentColor" d="M256.008,256c70.692,0,128-57.308,128-128S326.7,0,256.008,0s-128,57.308-128,128   C128.078,198.663,185.345,255.929,256.008,256z M256.008,64c35.346,0,64,28.654,64,64s-28.654,64-64,64s-64-28.654-64-64   S220.662,64,256.008,64z"/>
+              </g>
+            </svg>
+          </span>
+          <span>Кабинет</span>
+        </button>
+      </nav>
     </div>
   </div>
 
-  <div class="tabbar">
-    <button class="tab active" onclick="showScreen('home', this)"><span class="icon">🏠</span>Главная</button>
-    <button class="tab" onclick="showScreen('catalog', this)"><span class="icon">🧸</span>Каталог</button>
-    <button class="tab" onclick="showScreen('favorites', this)"><span class="icon">❤️</span>Избранное</button>
-    <button class="tab" onclick="showScreen('cart', this)"><span class="icon">🛒</span>Корзина</button>
-    <button class="tab" onclick="showScreen('profile', this)"><span class="icon">👤</span>Профиль</button>
-  </div>
-
-  <script>
-    function showScreen(id, el) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      el.classList.add('active');
-    }
-  </script>
+  <script src="app.js"></script>
 </body>
 </html>
