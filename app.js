@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // --------------------------
-  // Hero-карусель вверху (как раньше, но компактно)
+  // Hero-карусель вверху
   // --------------------------
   const heroSlides = document.querySelectorAll('.hero-slide');
   const heroDots = document.querySelectorAll('.carousel-dots .dot');
@@ -61,10 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Можно включить автопрокрутку, если захочешь:
-  // setInterval(() => setHeroSlide((heroIndex + 1) % heroSlides.length), 8000);
-
-    // --------------------------
+  // --------------------------
   // Баннеры магазина: свайп / drag
   // --------------------------
   const shopTrack = document.querySelector('.shop-banners-track');
@@ -77,10 +74,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let animationId = 0;
 
   function setShopPosition() {
+    if (!shopTrack) return;
     shopTrack.style.transform = `translateX(${currentTranslate}px)`;
   }
 
   function setShopByIndex() {
+    if (!shopTrack) return;
     const slideWidth = shopTrack.clientWidth;
     currentTranslate = -shopIndex * slideWidth;
     prevTranslate = currentTranslate;
@@ -92,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function shopTouchStart(e) {
+    if (!shopTrack) return;
     isDragging = true;
     startX = getPositionX(e);
     animationId = requestAnimationFrame(shopAnimation);
@@ -106,6 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function shopTouchEnd() {
+    if (!shopTrack) return;
     cancelAnimationFrame(animationId);
     isDragging = false;
     const slideWidth = shopTrack.clientWidth;
@@ -128,7 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (shopTrack && shopSlides.length > 0) {
-    // запретим браузеру тянуть картинки «как файлы»
     shopSlides.forEach(slide => {
       const img = slide.querySelector('img');
       if (img) {
@@ -151,51 +151,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('resize', setShopByIndex);
     setShopByIndex();
+    shopTrack.style.cursor = 'grab';
   }
 
-  // Простая поддержка свайпа для баннеров магазина
-  let startX = null;
-  let isTouching = false;
-
-  function onShopTouchStart(e) {
-    isTouching = true;
-    startX = e.touches ? e.touches[0].clientX : e.clientX;
-  }
-
-  function onShopTouchMove(e) {
-    if (!isTouching || startX === null) return;
-    // Если захочешь добавить "перетаскивание" превью — здесь можно менять translateX во время движения.
-  }
-
-  function onShopTouchEnd(e) {
-    if (!isTouching || startX === null) return;
-    const endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
-    const dx = endX - startX;
-
-    const threshold = 40; // сколько пикселей нужно "протащить", чтобы считать свайпом
-    if (dx > threshold && shopIndex > 0) {
-      updateShopSlider(shopIndex - 1); // свайп вправо -> предыдущий
-    } else if (dx < -threshold && shopIndex < shopSlides.length - 1) {
-      updateShopSlider(shopIndex + 1); // свайп влево -> следующий
-    }
-
-    isTouching = false;
-    startX = null;
-  }
-
-  if (shopTrack) {
-    // тач
-    shopTrack.addEventListener('touchstart', onShopTouchStart, { passive: true });
-    shopTrack.addEventListener('touchmove', onShopTouchMove, { passive: true });
-    shopTrack.addEventListener('touchend', onShopTouchEnd);
-
-    // мышь (опционально — для десктопа)
-    shopTrack.addEventListener('mousedown', onShopTouchStart);
-    shopTrack.addEventListener('mouseup', onShopTouchEnd);
-    shopTrack.addEventListener('mouseleave', onShopTouchEnd);
-  }
-
-  // начальное состояние
+  // начальное состояние hero
   setHeroSlide(0);
-  updateShopSlider(0);
 });
