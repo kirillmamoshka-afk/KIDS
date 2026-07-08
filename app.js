@@ -64,38 +64,94 @@ document.addEventListener('DOMContentLoaded', () => {
   // Можно включить автопрокрутку, если захочешь:
   // setInterval(() => setHeroSlide((heroIndex + 1) % heroSlides.length), 8000);
 
-  // --------------------------
-  // Баннеры магазина (простой слайдер)
+    // --------------------------
+  // Баннеры магазина: свайп / drag
   // --------------------------
   const shopTrack = document.querySelector('.shop-banners-track');
-  const shopSlides = document.querySelectorAll('.shop-banner-slide');
-  const shopDots = document.querySelectorAll('.shop-banners-dots .dot');
+  const shopSlides = Array.from(document.querySelectorAll('.shop-banner-slide'));
   let shopIndex = 0;
+  let isDragging = false;
+  let startX = 0;
+  let currentTranslate = 0;
+  let prevTranslate = 0;
+  let animationId = 0;
 
-  function updateShopSlider(index) {
-    if (!shopTrack || shopSlides.length === 0) return;
-    const clamped = Math.max(0, Math.min(index, shopSlides.length - 1));
-
-    // смещение всей ленты по X
-    const offset = -clamped * 100;
-    shopTrack.style.transform = `translateX(${offset}%)`;
-
-    shopSlides.forEach((slide, i) => {
-      slide.classList.toggle('active', i === clamped);
-    });
-    shopDots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === clamped);
-    });
-
-    shopIndex = clamped;
+  function setShopPosition() {
+    shopTrack.style.transform = `translateX(${currentTranslate}px)`;
   }
 
-  shopDots.forEach(dot => {
-    dot.addEventListener('click', () => {
-      const idx = Number(dot.dataset.shopBanner) || 0;
-      updateShopSlider(idx);
+  function setShopByIndex() {
+    const slideWidth = shopTrack.clientWidth;
+    currentTranslate = -shopIndex * slideWidth;
+    prevTranslate = currentTranslate;
+    setShopPosition();
+  }
+
+  function getPositionX(e) {
+    return e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+  }
+
+  function shopTouchStart(e) {
+    isDragging = true;
+    startX = getPositionX(e);
+    animationId = requestAnimationFrame(shopAnimation);
+    shopTrack.style.cursor = 'grabbing';
+  }
+
+  function shopTouchMove(e) {
+    if (!isDragging) return;
+    const currentX = getPositionX(e);
+    const delta = currentX - startX;
+    currentTranslate = prevTranslate + delta;
+  }
+
+  function shopTouchEnd() {
+    cancelAnimationFrame(animationId);
+    isDragging = false;
+    const slideWidth = shopTrack.clientWidth;
+    const movedBy = currentTranslate - prevTranslate;
+
+    const threshold = slideWidth * 0.15; // 15% ширины для смены слайда
+    if (movedBy < -threshold && shopIndex < shopSlides.length - 1) {
+      shopIndex += 1;
+    } else if (movedBy > threshold && shopIndex > 0) {
+      shopIndex -= 1;
+    }
+
+    setShopByIndex();
+    shopTrack.style.cursor = 'grab';
+  }
+
+  function shopAnimation() {
+    setShopPosition();
+    if (isDragging) requestAnimationFrame(shopAnimation);
+  }
+
+  if (shopTrack && shopSlides.length > 0) {
+    // запретим браузеру тянуть картинки «как файлы»
+    shopSlides.forEach(slide => {
+      const img = slide.querySelector('img');
+      if (img) {
+        img.addEventListener('dragstart', e => e.preventDefault());
+      }
+
+      // тач
+      slide.addEventListener('touchstart', shopTouchStart, { passive: true });
+      slide.addEventListener('touchmove', shopTouchMove, { passive: true });
+      slide.addEventListener('touchend', shopTouchEnd);
+
+      // мышь
+      slide.addEventListener('mousedown', shopTouchStart);
+      slide.addEventListener('mousemove', shopTouchMove);
+      slide.addEventListener('mouseup', shopTouchEnd);
+      slide.addEventListener('mouseleave', () => {
+        if (isDragging) shopTouchEnd();
+      });
     });
-  });
+
+    window.addEventListener('resize', setShopByIndex);
+    setShopByIndex();
+  }
 
   // Простая поддержка свайпа для баннеров магазина
   let startX = null;
